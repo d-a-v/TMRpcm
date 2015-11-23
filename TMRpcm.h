@@ -28,7 +28,7 @@ class TMRpcm
  public:
  	//TMRpcm();
  	//*** General Playback Functions and Vars ***
-	void play(char* filename);
+	void play(const char* filename);
 	void stopPlayback();
 	void volume(char vol);
 	void setVolume(char vol);
@@ -41,24 +41,24 @@ class TMRpcm
     uint8_t CSPin;
 
 	//*** Public vars used by RF library also ***
-	boolean wavInfo(char* filename);
+	boolean wavInfo(const char* filename);
 	boolean rfPlaying;
 	unsigned int SAMPLE_RATE;
 
 	//*** Advanced usage Vars ***
-	byte listInfo(char* filename, char *tagData, byte infoNum);
-	byte id3Info(char* filename, char *tagData, byte infoNum);
-	byte getInfo(char* filename, char* tagData, byte infoNum);
+	byte listInfo(const char* filename, char* tagData, byte infoNum);
+	byte id3Info(const char* filename, char* tagData, byte infoNum);
+	byte getInfo(const char* filename, char* tagData, byte infoNum);
 
 
 	#if !defined (ENABLE_MULTI)//Normal Mode
-		void play(char* filename, unsigned long seekPoint);
+		void play(const char* filename, unsigned long seekPoint);
 
 	//*** MULTI MODE **
 	#else
 		void quality(boolean q, boolean q2);
-		void play(char* filename, boolean which);
-		void play(char* filename, unsigned long seekPoint, boolean which);
+		void play(const char* filename, boolean which);
+		void play(const char* filename, unsigned long seekPoint, boolean which);
 		boolean isPlaying(boolean which);
 		void stopPlayback(boolean which);
 		void volume(char upDown,boolean which);
@@ -70,12 +70,12 @@ class TMRpcm
 	#endif
 
 	//*** Recording WAV files ***
-	void createWavTemplate(char* filename,unsigned int sampleRate);
-	void finalizeWavTemplate(char* filename);
+	void createWavTemplate(const char* filename,unsigned int sampleRate);
+	void finalizeWavTemplate(const char* filename);
 	#if defined (ENABLE_RECORDING)
-		void startRecording(char* fileName, unsigned int SAMPLE_RATE, byte pin);
-		void startRecording(char *fileName, unsigned int SAMPLE_RATE, byte pin, byte passThrough);
-		void stopRecording(char *fileName);
+		void startRecording(const char* fileName, unsigned int SAMPLE_RATE, byte pin);
+		void startRecording(const char* fileName, unsigned int SAMPLE_RATE, byte pin, byte passThrough);
+		void stopRecording(const char* fileName);
 	#endif
 
  private:
@@ -85,14 +85,14 @@ class TMRpcm
 	unsigned long fPosition();
 	unsigned int resolution;
 	byte lastSpeakPin;
-	byte metaInfo(boolean infoType, char* filename, char* tagData, byte whichInfo);
+	byte metaInfo(boolean infoType, const char* filename, char* tagData, byte whichInfo);
 	boolean seek(unsigned long pos);
 	boolean ifOpen();
 
 	#if !defined (SDFAT)
-		boolean searchMainTags(File xFile, char *datStr);
+		boolean searchMainTags(File xFile, const char* datStr);
 	#else
-		unsigned long searchMainTags(SdFile xFile, char *datStr);
+		unsigned long searchMainTags(SdFile xFile, const char* datStr);
 	#endif
 
 	#if defined (ENABLE_MULTI)
